@@ -20,7 +20,10 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module top(
-
-    );
+module myModule(input a, input b, input c, output reg y);
+reg tmp;
+always@(*) begin
+tmp = a & b;
+y = tmp | c;
+end
 endmodule
