@@ -29,7 +29,7 @@ void loop() {
     }
     else{
       i--;
-      if(i<=-1){
+      if(i<=0){
         counter = 0;
         i=0;
       }
