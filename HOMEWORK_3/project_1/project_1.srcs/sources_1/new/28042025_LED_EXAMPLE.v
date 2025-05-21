@@ -27,28 +27,35 @@ input btn, // senaryoda buton var, buton varken ledler kaysın isteniyor
 output reg [15:0] led
     );
     reg [15:0] led_next;
+    reg [31:0] timer, timerNext; //clk sinyalimin çalışmasını gözle gözlemleyemiyorum
+    //gözlem yapabilmek için toplayıcı devresi ekleyerek bekleme atıyorum
     
     always@(posedge clk) begin
         led <= led_next; 
         //clk ile tetiklenen led adında bir saklayıcı var.
         //bu saklayıcının sinyali led_next kablosundan alıyor
+        timer <= timerNext;
     end
     
     //always@(*) bloğum devrenin davranışını belirliyor
     always@(*) begin
         led_next = led; //başlangıçta amatörken sorunların önüne geçmeyi sağlayan bir yaklaşım
+        timerNext = timer;
         
         if(rst) begin
             led_Next = 16'b000000000000001;
+            timerNext = 0;
         end else begin
-            if(btn) begin 
-                //led_next = led >> 1; bu işlem bit değerini 1 sağa kaydırır ama en sola geldiğimizde 1 biti uçar
-                led_next = {led[0], led[15:1]}; // concat işlemi
-                //en sağdaki biti al, en sola koy
-                //ikisinin de donanımsal açıdan maliyeti yok
-                
-                
-                
+            if(timer == 100000000) begin
+                timerNext = 0;
+                if(btn) begin 
+                    //led_next = led >> 1; bu işlem bit değerini 1 sağa kaydırır ama en sola geldiğimizde 1 biti uçar
+                    led_next = {led[0], led[15:1]}; // concat işlemi
+                    //en sağdaki biti al, en sola koy
+                    //ikisinin de donanımsal açıdan maliyeti yok
+                end
+            end else begin
+                timerNext = timer + 1;
         end
         
     end
