@@ -40,8 +40,8 @@ output reg [15:0] led
         
         if(rst) begin
             led_Next = 16'b000000000000001;
-        end else
-            if(btn)
+        end else begin
+            if(btn) begin 
                 //led_next = led >> 1; bu işlem bit değerini 1 sağa kaydırır ama en sola geldiğimizde 1 biti uçar
                 led_next = {led[0], led[15:1]}; // concat işlemi
                 //en sağdaki biti al, en sola koy
