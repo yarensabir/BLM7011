@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 03.05.2025 22:18:37
+// Create Date: 16.06.2025 02:35:50
 // Design Name: 
-// Module Name: top
+// Module Name: devre
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,10 +20,12 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module myModule(input a, input b, input c, output reg y);
-reg tmp;
-always@(*) begin
-tmp = a & b;
-y = tmp | c;
+module devre(input a, input b, input e, output reg c);
+always @(*) begin
+	if(a)
+	c=b^e;
+	else
+	c=a;
 end
 endmodule
+
